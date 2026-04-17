@@ -1,12 +1,20 @@
-
 import Link from "next/link";
 import { Surah } from "../types/quran";
-import { api } from "../lib/api";
-
 
 async function getSurahs(): Promise<Surah[]> {
-  const res = await api.get("/surahs");
-  return res.data.data;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/surahs`,
+    {
+      cache: "force-cache", // ✅ SSG enabled
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch surahs");
+  }
+
+  const data = await res.json();
+  return data.data;
 }
 
 export default async function HomePage() {
@@ -28,6 +36,7 @@ export default async function HomePage() {
                 <p className="font-semibold">
                   {surah.id}. {surah.name_en}
                 </p>
+
                 <p className="text-sm text-gray-500">
                   {surah.verses_count} verses
                 </p>
