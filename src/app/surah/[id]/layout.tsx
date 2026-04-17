@@ -3,6 +3,7 @@
 import { useState } from "react";
 import SettingsPanel from "@/src/components/SettingsPanel";
 import SearchBar from "@/src/components/SearchBar";
+import { Menu, X } from "lucide-react";
 
 export default function SurahLayout({
   children,
@@ -24,7 +25,7 @@ export default function SurahLayout({
         <div className="fixed inset-0 bg-black/40 z-50 md:hidden">
           <div className="w-80 h-full bg-white p-4">
             <button onClick={() => setOpen(false)} className="mb-4">
-              Close
+              <X />
             </button>
             <SidebarContent />
           </div>
@@ -35,7 +36,9 @@ export default function SurahLayout({
       <main className="flex-1">
         {/* top bar */}
         <div className="bg-white border-b p-4 flex justify-between md:hidden">
-          <button onClick={() => setOpen(true)}>Menu</button>
+          <button onClick={() => setOpen(true)}>
+            <Menu />
+          </button>
           <h1 className="font-bold">Quran</h1>
         </div>
 
@@ -50,8 +53,11 @@ function SidebarContent() {
     <div className="space-y-6">
       <h1 className="text-xl font-bold">Quran App</h1>
 
-      <SearchBar />
+    
       <SettingsPanel />
+
+       <h1 className="font-bold text-lg">Search Bar</h1>
+        <SearchBar />
     </div>
   );
 }
